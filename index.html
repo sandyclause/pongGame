@@ -47,13 +47,16 @@
 //request animation
 
         function move(){
-            $('.ball').animate({top: '80vh'},5000);           
+            // $('.ball').animate({top: '+=50'},5000);    
+            $('.ball').css('top', '+=1');       
         }
-        
-        move();
+        const test = parseInt($('.ball').css('top'),10);
 
         function moveBack() {
-            $('.ball').animate({ top: '0vh' }, 5000);
+            if(test >= 0){
+                $('.ball').animate({ top: '0px' }, 5000);   
+
+            }
         }        
 
 
@@ -77,7 +80,7 @@
                 moveBack();
             } else{
                 console.log('falseee');
-                // move();
+                move();
             }
         }
 
