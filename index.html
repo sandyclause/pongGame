@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bounce game</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <main>
+        <div class="ball"></div>
+        <div class="result"></div>
+        <div class="paddle"></div>
+    </main>
+    
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<script>
+
+    $(function () {
+
+     
+        function setCords(){
+            $('.ball').data('coordinates', {
+                x: $('.ball').offset().left,
+                y: $('.ball').offset().top,
+                height: $('.ball').outerHeight(),
+                width: $('.ball').outerWidth()
+            });
+            $('.paddle').data('coordinates', {
+                x: $('.paddle').offset().left,
+                y: $('.paddle').offset().top,
+                height: $('.paddle').outerHeight(),
+                width: $('.paddle').outerWidth()
+            });        
+
+        }
+
+
+//set interval
+//request animation
+
+        function move(){
+            $('.ball').animate({top: '80vh'},5000);           
+        }
+        move();
+
+        function moveBack() {
+            $('.ball').animate({ top: '0vh' }, 5000);
+        }        
+
+
+
+        function isCollide(a, b) {
+            return !(
+                ((a.y + a.height) < (b.y)) ||
+                (a.y > (b.y + b.height)) ||
+                ((a.x + a.width) < b.x) ||
+                (a.x > (b.x + b.width))
+            );
+        }
+
+        function collisionCheck(){
+            //get the cords of the ball and paddle
+            setCords();
+            var ball = $('.ball').data('coordinates');
+            var paddle = $('.paddle').data('coordinates');
+            if(isCollide(ball, paddle)){
+                console.log('trueee');
+                moveBack();
+            } else{
+                console.log('falseee');
+                // move();
+            }
+        }
+
+        function repeatOften(){
+            collisionCheck();
+            requestAnimationFrame(repeatOften);
+        }
+        requestAnimationFrame(repeatOften);
+
+    });
+
+</script>    
+
+
+
+    
+<script>
+
+    // https://stackoverflow.com/users/2051938/mixeroid
+
+</script>
+</body>
+</html>

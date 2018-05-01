@@ -1,0 +1,38 @@
+main{
+    height: 100vh;
+    width: 100vh;
+}
+
+.ball{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: red;
+
+    top: 0%;
+    left: 0px;
+
+    position: absolute;
+    
+}
+
+.paddle{
+    width: 100px;
+    height: 20px;
+    background: black;
+
+    position: absolute;
+    left: 0;
+    top: 80%;
+}
+
+
+@keyframes ball{
+    0%{
+        top: 0;
+    }
+
+    100%{
+        top: 100%;
+    }
+}

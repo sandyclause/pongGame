@@ -1,0 +1,7 @@
+*.psd
+*.png
+styles/styles.css
+*.config
+images
+fonts.txt
+.DS_Store

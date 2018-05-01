@@ -1,0 +1,27 @@
+@import "setup";
+@import "utils";
+@import "typography";
+@import "components/game.scss";
+
+
+// font-family: 'Poppins', sans-serif;
+// font-family: 'Raleway', sans-serif;
+
+.wrapper{
+    max-width: 1170px;
+    margin: 0 auto;
+    width: 95%;
+}
+
+img{
+    width: 100%;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+body{
+    font-size: 1rem;
+    margin: 0;
+}
