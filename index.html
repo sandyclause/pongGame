@@ -50,10 +50,10 @@
             // $('.ball').animate({top: '+=50'},5000);    
             $('.ball').css('top', '+=1');       
         }
-        const test = parseInt($('.ball').css('top'),10);
+        const onTop = parseInt($('.ball').css('top'),10);
 
         function moveBack() {
-            if(test >= 0){
+            if(onTop >= 0){
                 $('.ball').animate({ top: '0px' }, 5000);   
 
             }
@@ -105,7 +105,6 @@
 //random ball starting position
         function randomStart(){
             let x = Math.floor(Math.random()*500);
-            console.log(x);
             $('.ball').css('left', x);
         };
 
@@ -115,7 +114,18 @@
         $('main').append(`<div class="ball"></div>`);
 
 //loop through balls to add unique classname
-        // for(let i = 1; i = )
+
+        function ballAddClass(){
+             $('.ball').each(function(index, ball){
+                 console.log(ball);
+                 $(ball).addClass('ball' + index);
+             });
+            
+        }
+
+        ballAddClass();
+
+
 
 
     });//end of doc ready
