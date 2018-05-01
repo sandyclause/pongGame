@@ -60,7 +60,7 @@
         }        
 
 
-
+// collision function
         function isCollide(a, b) {
             return !(
                 ((a.y + a.height) < (b.y)) ||
@@ -84,13 +84,42 @@
             }
         }
 
+//constant check collision status
         function repeatOften(){
             collisionCheck();
             requestAnimationFrame(repeatOften);
         }
         requestAnimationFrame(repeatOften);
 
-    });
+
+//mouse as paddle
+
+        $(document).on('mousemove', function(e){
+            $('.paddle').css('top', e.pageY);
+            $('.paddle').css('left', e.pageX);
+        });
+
+//hide mouse
+        $('body').css('cursor', 'none');
+
+//random ball starting position
+        function randomStart(){
+            let x = Math.floor(Math.random()*500);
+            console.log(x);
+            $('.ball').css('left', x);
+        };
+
+        randomStart();
+
+//add balls
+        $('main').append(`<div class="ball"></div>`);
+
+//loop through balls to add unique classname
+        // for(let i = 1; i = )
+
+
+    });//end of doc ready
+
 
 </script>    
 
