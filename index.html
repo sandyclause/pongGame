@@ -36,16 +36,14 @@
                 ballAddClass();
                 requestAnimationFrame(repeatOften);
                 
-            }, randomTimer);
-
- 
+            }, 5000);
         };
 
 
 
 //loop through balls to add unique classname
         let lastBall;
-        let lastBallCreatedNumber;
+
         function ballAddClass() {
              
             $('.ball').each(function (index, ball) {
@@ -55,11 +53,6 @@
                 // console.log($('.ball'+index).attr('class').match(/ball\d+/));
 
             });
-
-            //grabs last number of ball array - aka newest ball created
-            const lastBallArray = Array.from(lastBall);
-            lastBallCreatedNumber = lastBallArray[lastBallArray.length - 1];
-
 
             //randomly position ball
             randomStart();
@@ -72,13 +65,6 @@
             let x = Math.floor(Math.random() * 500);
             $('.ball' + lastBall).css('left', x + 'px');
 
-            // console.log($('.ball').attr('class'));
-
-            // let n = $('.ball').length;
-            // for(let i = 0; i < n; i++){
-            //     let x = Math.floor(Math.random()*500);
-            //     $('.ball'+i).css('left', x+'px');
-            // }
         };
 
 //collision function
@@ -97,8 +83,23 @@
                 else{
                     move(dynamicBall);
                 }
+
+                deleteBall(ball.y, dynamicBall);
+
             }
+                // console.log(ball.y, ball);
         };
+
+//check if ball has passed boundaries. if so, delete ball
+        function deleteBall(item, itemSelf){
+ 
+            if(item > 500){
+                $(itemSelf).remove();
+                console.log('removed');
+                console.log(itemSelf);
+            }
+        }
+
 
 //constant check collision status
         function repeatOften(){
