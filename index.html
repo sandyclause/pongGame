@@ -25,6 +25,37 @@
 
     $(function () {
 
+
+        //add balls
+        $('main').append(`<div class="ball"></div>`);
+        $('main').append(`<div class="ball"></div>`);
+        $('main').append(`<div class="ball"></div>`);
+
+        //loop through balls to add unique classname
+
+        function ballAddClass() {
+            $('.ball').each(function (index, ball) {
+                $(ball).addClass('ball' + index);
+            });
+        }
+
+        ballAddClass();
+
+
+        //random ball starting position
+        function randomStart() {
+
+            const x = '500px';
+            // $('.ball').each(function (index) {
+            // let x = Math.floor(Math.random()*500);
+            $('.ball2').css('left', '500px');
+            $('.ball1').css('left', '400px');
+
+            // });
+        };
+
+        randomStart();
+
      
         function setCords(ball){
 
@@ -64,23 +95,25 @@
 
 
         function collisionCheck(){
-            //get the cords of the ball and paddle
-            setCords('.ball');
+            let n = $('.ball').length;
+            for(let i = 0; i < n; i++){
+                let dynamicBall = ('.ball' + i);
+                console.log(dynamicBall);
+                //get the cords of the ball and paddle
+                setCords(dynamicBall);
 
-            var ball = $('.ball').data('coordinates');
-
-         
-            var paddle = $('.paddle').data('coordinates');
-            if(isCollide(ball, paddle)){
-                console.log('trueee');
-                moveBack('.ball');
-            } 
-            else{
-                console.log('falseee');
-                move('.ball');
+                var ball = $(dynamicBall).data('coordinates');
+                var paddle = $('.paddle').data('coordinates');
+                if(isCollide(ball, paddle)){
+                    // console.log('trueee');
+                    moveBack(dynamicBall);
+                } 
+                else{
+                    // console.log('falseee');
+                    move(dynamicBall);
+                }
             }
         }
-
 // collision function
         function isCollide(a, b) {
             return !(
@@ -90,13 +123,15 @@
                 (a.x > (b.x + b.width))
             );
         }
-
 //constant check collision status
         function repeatOften(){
             collisionCheck();
             requestAnimationFrame(repeatOften);
         }
         requestAnimationFrame(repeatOften);
+
+
+
 
 
 //mouse as paddle
@@ -109,26 +144,13 @@
 //hide mouse
         $('body').css('cursor', 'none');
 
-//random ball starting position
-        function randomStart(){
-            let x = Math.floor(Math.random()*500);
-            $('.ball').css('left', x);
-        };
 
-        randomStart();
 
-//add balls
-        $('main').append(`<div class="ball"></div>`);
 
-//loop through balls to add unique classname
 
-        function ballAddClass(){
-             $('.ball').each(function(index, ball){
-                 $(ball).addClass('ball' + index);
-             });
-        }
 
-        ballAddClass();
+
+
 
 
 
