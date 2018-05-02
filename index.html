@@ -54,15 +54,12 @@
 //random ball starting position
         function randomStart() {
 
-
             let n = $('.ball').length;
 
             for(let i = 0; i < n; i++){
                 let x = Math.floor(Math.random()*500);
                 $('.ball'+i).css('left', x+'px');
             }
-           
-
         };
 
 //collision function
@@ -76,11 +73,9 @@
                 var ball = $(dynamicBall).data('coordinates');
                 var paddle = $('.paddle').data('coordinates');
                 if(isCollide(ball, paddle)){
-
                     moveBack(dynamicBall);
                 } 
                 else{
-
                     move(dynamicBall);
                 }
             }
@@ -96,10 +91,10 @@
         function setCords(ball){
 
             $(ball).data('coordinates', {
-                x: $('.ball').offset().left,
-                y: $('.ball').offset().top,
-                height: $('.ball').outerHeight(),
-                width: $('.ball').outerWidth()
+                x: $(ball).offset().left,
+                y: $(ball).offset().top,
+                height: $(ball).outerHeight(),
+                width: $(ball).outerWidth()
             });
    
             $('.paddle').data('coordinates', {
