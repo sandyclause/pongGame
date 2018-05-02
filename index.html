@@ -30,12 +30,13 @@
 
         function init(){
             //add balls
+            let randomTimer = (Math.floor(Math.random()*3) * 1000);
             setInterval(function(){
                 $('main').append(`<div class="ball"></div>`);
                 ballAddClass();
                 requestAnimationFrame(repeatOften);
                 
-            }, 3000);
+            }, randomTimer);
 
  
         };
@@ -50,7 +51,7 @@
             $('.ball').each(function (index, ball) {
                 $(ball).addClass('ball' + index);
                 // console.log('ball' + index);
-                lastBall = ('ball' + index);
+                lastBall = index;
                 // console.log($('.ball'+index).attr('class').match(/ball\d+/));
 
             });
@@ -69,7 +70,7 @@
 //random ball starting position
         function randomStart() {
             let x = Math.floor(Math.random() * 500);
-            $('.ball' + lastBallCreatedNumber).css('left', x + 'px');
+            $('.ball' + lastBall).css('left', x + 'px');
 
             // console.log($('.ball').attr('class'));
 
