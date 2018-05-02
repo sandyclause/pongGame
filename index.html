@@ -26,13 +26,15 @@
     $(function () {
 
      
-        function setCords(){
-            $('.ball').data('coordinates', {
+        function setCords(ball){
+
+            $(ball).data('coordinates', {
                 x: $('.ball').offset().left,
                 y: $('.ball').offset().top,
                 height: $('.ball').outerHeight(),
                 width: $('.ball').outerWidth()
             });
+   
             $('.paddle').data('coordinates', {
                 x: $('.paddle').offset().left,
                 y: $('.paddle').offset().top,
@@ -46,19 +48,38 @@
 //set interval
 //request animation
 
-        function move(){
+        function move(ball){
             // $('.ball').animate({top: '+=50'},5000);    
-            $('.ball').css('top', '+=1');       
+            $(ball).css('top', '+=1');       
         }
-        const onTop = parseInt($('.ball').css('top'),10);
 
-        function moveBack() {
+        function moveBack(ball) {
+            const onTop = parseInt($(ball).css('top'),10);
             if(onTop >= 0){
-                $('.ball').animate({ top: '0px' }, 5000);   
+                $(ball).animate({ top: '0px' }, 5000);   
 
             }
         }        
 
+
+
+        function collisionCheck(){
+            //get the cords of the ball and paddle
+            setCords('.ball');
+
+            var ball = $('.ball').data('coordinates');
+
+         
+            var paddle = $('.paddle').data('coordinates');
+            if(isCollide(ball, paddle)){
+                console.log('trueee');
+                moveBack('.ball');
+            } 
+            else{
+                console.log('falseee');
+                move('.ball');
+            }
+        }
 
 // collision function
         function isCollide(a, b) {
@@ -68,20 +89,6 @@
                 ((a.x + a.width) < b.x) ||
                 (a.x > (b.x + b.width))
             );
-        }
-
-        function collisionCheck(){
-            //get the cords of the ball and paddle
-            setCords();
-            var ball = $('.ball').data('coordinates');
-            var paddle = $('.paddle').data('coordinates');
-            if(isCollide(ball, paddle)){
-                console.log('trueee');
-                moveBack();
-            } else{
-                console.log('falseee');
-                move();
-            }
         }
 
 //constant check collision status
@@ -117,10 +124,8 @@
 
         function ballAddClass(){
              $('.ball').each(function(index, ball){
-                 console.log(ball);
                  $(ball).addClass('ball' + index);
              });
-            
         }
 
         ballAddClass();
