@@ -30,36 +30,54 @@
 
         function init(){
             //add balls
-            $('main').append(`<div class="ball"></div>`);
-            $('main').append(`<div class="ball"></div>`);
-            $('main').append(`<div class="ball"></div>`);
+            setInterval(function(){
+                $('main').append(`<div class="ball"></div>`);
+                ballAddClass();
+                requestAnimationFrame(repeatOften);
+                
+            }, 3000);
 
-            ballAddClass();
-            randomStart();
-            requestAnimationFrame(repeatOften);
+ 
         };
 
 
 
 //loop through balls to add unique classname
-
+        let lastBall;
+        let lastBallCreatedNumber;
         function ballAddClass() {
+             
             $('.ball').each(function (index, ball) {
                 $(ball).addClass('ball' + index);
+                // console.log('ball' + index);
+                lastBall = ('ball' + index);
+                // console.log($('.ball'+index).attr('class').match(/ball\d+/));
+
             });
+
+            //grabs last number of ball array - aka newest ball created
+            const lastBallArray = Array.from(lastBall);
+            lastBallCreatedNumber = lastBallArray[lastBallArray.length - 1];
+
+
+            //randomly position ball
+            randomStart();
         };
 
 
 
 //random ball starting position
         function randomStart() {
+            let x = Math.floor(Math.random() * 500);
+            $('.ball' + lastBallCreatedNumber).css('left', x + 'px');
 
-            let n = $('.ball').length;
+            // console.log($('.ball').attr('class'));
 
-            for(let i = 0; i < n; i++){
-                let x = Math.floor(Math.random()*500);
-                $('.ball'+i).css('left', x+'px');
-            }
+            // let n = $('.ball').length;
+            // for(let i = 0; i < n; i++){
+            //     let x = Math.floor(Math.random()*500);
+            //     $('.ball'+i).css('left', x+'px');
+            // }
         };
 
 //collision function
