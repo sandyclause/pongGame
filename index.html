@@ -45,6 +45,11 @@
 
 
 <script>
+    // deleting
+    // animating
+    // add scores
+    // add twitter
+    // data visual
 
     $(function () {
         $('#play').click(function(){
@@ -65,7 +70,7 @@
                 addBall();
                 requestAnimationFrame(repeatOften);
                 
-            }, 1000);
+            }, 3000);
 
 
             //display paddle and hide cursor
@@ -105,8 +110,9 @@
 //collision function
         function collisionCheck(){
             let n = $('.ball').length;
-
+            // console.log('number of balls ' + n);
             for(let i = 0; i < n; i++){
+                // console.log('inside for loop' + i);
                 let dynamicBall = ('.ball' + i);
                 //get the cords of the ball and paddle
                 // console.log(dynamicBall);
@@ -114,22 +120,34 @@
 
                 var ball = $(dynamicBall).data('coordinates');
                 var paddle = $('.paddle').data('coordinates');
+                // var moveDown = $(dynamicBall).data('moveDown');
+
                 if(isCollide(ball, paddle)){
+
+                    //set moving down to false
+                    $(dynamicBall).data('moveDown', false);
+                    $(dynamicBall).data('moveUp', true);
+                   
                     moveBack(dynamicBall);
                 } 
                 else{
+                    
+                    //set moving up to false
+                    $(dynamicBall).data('moveUp', false);
+                    $(dynamicBall).data('moveDown', true);
+
                     move(dynamicBall);
                 }
 
-                deleteBall(ball.y, dynamicBall);
 
+                deleteBall(ball.y, dynamicBall);
             }
                 // console.log(ball.y, ball);
         };
 
 //check if ball has passed boundaries. if so, delete ball
         function deleteBall(item, itemSelf){
- 
+//  n = $('.ball').length;
             if(item > 500){
                 $(itemSelf).remove();
                 console.log('removed '+itemSelf);
@@ -146,6 +164,7 @@
 
 //setting the x and y values
         function setCords(ball){
+            // console.log($(ball));
 
             $(ball).data('coordinates', {
                 x: $(ball).offset().left,
@@ -153,6 +172,10 @@
                 height: $(ball).outerHeight(),
                 width: $(ball).outerWidth()
             });
+
+            //sets moving down intial value to true
+            $(ball).data('moveDown', true);
+            $(ball).data('moveUp', false);
    
             $('.paddle').data('coordinates', {
                 x: $('.paddle').offset().left,
@@ -166,16 +189,29 @@
 //request animation
 
         function move(ball){
-            let randomSpeed = Math.floor(Math.random()*10)
+            // let randomSpeed = Math.floor(Math.random()*10)
             // $(ball).animate({top: '100%'},5000);    
-            $(ball).css('top', '+=1');       
+
+            //move the ball only when moving down === true
+            if($(ball).data('moveDown') === true){
+                $(ball).css('top', '+=1');
+                // console.log('down move');       
+            } else{
+                console.log('down not move');
+            }
         };
 
         function moveBack(ball) {
-            const onTop = parseInt($(ball).css('top'),10);
-            if(onTop >= 0){
-                $(ball).animate({ top: '0px' }, 5000);   
+            // const onTop = parseInt($(ball).css('top'),10);
+            // if(onTop >= 0){
+            //     $(ball).animate({ top: '0px' }, 5000);   
+            // }
 
+            if ($(ball).data('moveUp') === true){
+                $(ball).animate({ top: '0px' }, 5000);
+                // console.log('up move');
+            }else{
+                console.log('up not move')
             }
         };        
 
