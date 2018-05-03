@@ -8,11 +8,33 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
+    <header>
+        <div class="wrapper">
+            <h1>Simple Pong Game</h1>
+        </div>
+    </header>
     <main>
-        <div class="ball"></div>
-        <div class="result"></div>
-        <div class="paddle"></div>
+        <div class="description">
+            <p>Hi, this is my simple pong game. The goal of the game is to not let the balls fall through the bottom of the screen using the paddle.</p>
+
+            <button id="play">Play</button>
+
+        </div>
+        <div class="game">
+            <!-- <div class="ball"></div> -->
+            <div class="result"></div>
+            <div class="paddle"></div>
+
+        </div>
     </main>
+    <footer>
+        <div class="wrapper">
+            <div class="contactShare">
+                <p>by: sandy tian</p>
+
+            </div>
+        </div>
+    </footer>
     
 
 
@@ -21,22 +43,34 @@
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
+
 <script>
 
     $(function () {
+        $('#play').click(function(){
+            
+            //start game
+            init();
+
+            //hide button
+            $('.description').css('display', 'none');
 
 
-        init();
+        });
 
         function init(){
             //add balls
             let randomTimer = (Math.floor(Math.random()*3) * 1000);
             setInterval(function(){
-                $('main').append(`<div class="ball"></div>`);
-                ballAddClass();
+                addBall();
                 requestAnimationFrame(repeatOften);
                 
-            }, 5000);
+            }, 1000);
+
+
+            //display paddle and hide cursor
+            $('.paddle').css('display', 'block');
+            $('body').css('cursor', 'none');
         };
 
 
@@ -44,13 +78,14 @@
 //loop through balls to add unique classname
         let lastBall;
 
-        function ballAddClass() {
+        function addBall() {
              
+            $('.game').append(`<div class="ball"></div>`);
             $('.ball').each(function (index, ball) {
-                $(ball).addClass('ball' + index);
-                // console.log('ball' + index);
+                // $(ball).addClass('ball' + index);
+                $(ball).attr('class', 'ball' + ' ' +'ball' + index);
                 lastBall = index;
-                // console.log($('.ball'+index).attr('class').match(/ball\d+/));
+
 
             });
 
@@ -70,9 +105,11 @@
 //collision function
         function collisionCheck(){
             let n = $('.ball').length;
+
             for(let i = 0; i < n; i++){
                 let dynamicBall = ('.ball' + i);
                 //get the cords of the ball and paddle
+                // console.log(dynamicBall);
                 setCords(dynamicBall);
 
                 var ball = $(dynamicBall).data('coordinates');
@@ -95,8 +132,8 @@
  
             if(item > 500){
                 $(itemSelf).remove();
-                console.log('removed');
-                console.log(itemSelf);
+                console.log('removed '+itemSelf);
+                // console.log(itemSelf);
             }
         }
 
@@ -129,7 +166,8 @@
 //request animation
 
         function move(ball){
-            // $('.ball').animate({top: '+=50'},5000);    
+            let randomSpeed = Math.floor(Math.random()*10)
+            // $(ball).animate({top: '100%'},5000);    
             $(ball).css('top', '+=1');       
         };
 
@@ -158,8 +196,9 @@
             $('.paddle').css('left', e.pageX);
         });
 
+
 //hide mouse
-        $('body').css('cursor', 'none');
+        
 
     });//end of doc ready
 
