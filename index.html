@@ -81,70 +81,68 @@
 
 
 //loop through balls to add unique classname
-        let ballNumber = 0;
-        let totalBallsArray = [];
+        let lastBall;
 
         function addBall() {
+             
+            $('.game').append(`<div class="ball"></div>`);
+            $('.ball').each(function (index, ball) {
+                // $(ball).addClass('ball' + index);
+                $(ball).attr('class', 'ball' + ' ' +'ball' + index);
+                lastBall = index;
 
-            let currentBall = `ball${ballNumber}`;
-            $('.game').append(`<div class="ball ${currentBall}"></div>`);
-            
-            totalBallsArray.push(currentBall);
-            console.log(totalBallsArray);
 
-            //call setCords on everything in the array
-            totalBallsArray.forEach(function(ball){
-              
-                const ballClass = `.${ball}`;
-                setCords(ballClass);
-                collisionCheck(ballClass);
-                
             });
 
             //randomly position ball
-            randomStart(ballNumber);
-
-            //increment the number on ball
-            ballNumber++;
+            randomStart();
         };
 
 
 
 //random ball starting position
-        function randomStart(ball) {
+        function randomStart() {
             let x = Math.floor(Math.random() * 500);
-            $('.ball' + ball).css('left', x + 'px');
+            $('.ball' + lastBall).css('left', x + 'px');
 
         };
 
 //collision function
-        function collisionCheck(dynamicBall){
-            console.log('in collision '+dynamicBall);
+        function collisionCheck(){
+            let n = $('.ball').length;
+            // console.log('number of balls ' + n);
+            for(let i = 0; i < n; i++){
+                // console.log('inside for loop' + i);
+                let dynamicBall = ('.ball' + i);
+                //get the cords of the ball and paddle
+                // console.log(dynamicBall);
+                setCords(dynamicBall);
 
-            var ball = $(`'${dynamicBall}'`).data('coordinates');
-            var paddle = $('.paddle').data('coordinates');
+                var ball = $(dynamicBall).data('coordinates');
+                var paddle = $('.paddle').data('coordinates');
+                // var moveDown = $(dynamicBall).data('moveDown');
 
-            if(isCollide(ball, paddle)){
+                if(isCollide(ball, paddle)){
 
-                //set moving down to false
-                $(dynamicBall).data('moveDown', false);
-                $(dynamicBall).data('moveUp', true);
-                
-                moveBack(dynamicBall);
-            } 
-            else{
-                
-                //set moving up to false
-                $(dynamicBall).data('moveUp', false);
-                $(dynamicBall).data('moveDown', true);
+                    //set moving down to false
+                    $(dynamicBall).data('moveDown', false);
+                    $(dynamicBall).data('moveUp', true);
+                   
+                    moveBack(dynamicBall);
+                } 
+                else{
+                    
+                    //set moving up to false
+                    $(dynamicBall).data('moveUp', false);
+                    $(dynamicBall).data('moveDown', true);
 
-                move(dynamicBall);
+                    move(dynamicBall);
+                }
+
+
+                deleteBall(ball.y, dynamicBall);
             }
-
-
-            // deleteBall(ball.y, dynamicBall);
-        
-            // console.log(ball.y, ball);
+                // console.log(ball.y, ball);
         };
 
 //check if ball has passed boundaries. if so, delete ball
@@ -166,6 +164,7 @@
 
 //setting the x and y values
         function setCords(ball){
+            // console.log($(ball));
 
             $(ball).data('coordinates', {
                 x: $(ball).offset().left,
