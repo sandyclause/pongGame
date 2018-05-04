@@ -115,12 +115,10 @@
                 // console.log('inside for loop' + i);
                 let dynamicBall = ('.ball' + i);
                 //get the cords of the ball and paddle
-                // console.log(dynamicBall);
                 setCords(dynamicBall);
 
                 var ball = $(dynamicBall).data('coordinates');
                 var paddle = $('.paddle').data('coordinates');
-                // var moveDown = $(dynamicBall).data('moveDown');
 
                 if(isCollide(ball, paddle)){
 
@@ -136,23 +134,22 @@
                     $(dynamicBall).data('moveUp', false);
                     $(dynamicBall).data('moveDown', true);
 
-                    move(dynamicBall);
+                    move(ball.y, dynamicBall);
                 }
 
 
-                deleteBall(ball.y, dynamicBall);
+                
             }
-                // console.log(ball.y, ball);
+
         };
 
 //check if ball has passed boundaries. if so, delete ball
         function deleteBall(item, itemSelf){
-//  n = $('.ball').length;
-            if(item > 500){
-                $(itemSelf).remove();
-                console.log('removed '+itemSelf);
-                // console.log(itemSelf);
-            }
+            console.log('removed ' + itemSelf);
+            // if(item > 500){
+            //     // $(itemSelf).remove();
+            //     console.log('removed '+itemSelf);
+            // }
         }
 
 
@@ -188,17 +185,22 @@
 //set interval
 //request animation
 
-        function move(ball){
-            // let randomSpeed = Math.floor(Math.random()*10)
-            // $(ball).animate({top: '100%'},5000);    
+        function move(ball, dynamicBall){
+      
+            if(ball.y < 500){
+                deleteBall(ball.y, dynamicBall);
 
-            //move the ball only when moving down === true
-            if($(ball).data('moveDown') === true){
-                $(ball).css('top', '+=1');
-                // console.log('down move');       
             } else{
-                console.log('down not move');
+                $(dynamicBall).css('top', '+=1');
             }
+            
+            //move the ball only when moving down === true
+            // if($(ball).data('moveDown') === true){
+            //     $(ball).css('top', '+=1');
+            //     // console.log('down move');       
+            // } else{
+            //     console.log('down not move');
+            // }
         };
 
         function moveBack(ball) {
