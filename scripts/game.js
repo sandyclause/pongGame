@@ -39,14 +39,16 @@ $(function() {
             requestAnimationFrame(repeatOften);
             console.log("added ball");
           }, 10000);
-      
+          //start paddle as block
+          $(".paddle").css("display", "block");
           //display paddle and hide cursor
           $('main').on('mouseover', function(){
               $(".paddle").css("display", "block");
               $("body").css("cursor", "none");
               console.log('on main');
-
+                $(".paddle").css("display", "block");
           });
+          //hide paddle if on header or footer
           $('footer, header').on('mouseover', function(){
             $(".paddle").css("display", "none");
             $("body").css("cursor", "auto");
@@ -58,14 +60,15 @@ $(function() {
         let lastBall;
         
         function randomColor(){
-            //
+            //all possible make up of color hex code
             const val = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
             let color = "#";
 
             for(let i = 0; i < 6; i++){
+                //appends 6 times to the color string
                 color += val[Math.floor(Math.random() * 16)];
             }
-
+            return color;
         }
       
         randomColor();
@@ -76,6 +79,9 @@ $(function() {
             $(ball).attr("class", "ball" + " " + "ball" + index);
             lastBall = index;
           });
+
+          //randomly assigns color to the last ball created
+          $('.ball'+ lastBall).css('background', randomColor());
       
           //randomly position ball
           randomStart();
@@ -107,8 +113,10 @@ $(function() {
       
               if (isCollide(ball, paddle)) {
                 score++;
-                console.log(score);
                 moveBack(dynamicBall);
+
+                //changes color of paddle on collision
+                $('.paddle').css('background', randomColor());
       
                 runBallUp = true;
               } else {
@@ -185,7 +193,6 @@ $(function() {
         }
       
         function moveBack(dynamicBall) {
-          // $(dynamicBall).css('top', '-=2');
           $(dynamicBall).css("top", 0);
         }
       
