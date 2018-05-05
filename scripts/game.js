@@ -1,7 +1,7 @@
 
 $(function() {
     const musicLoaded = $('#thefile');
-    console.log(musicPause);
+
     //start game once music is loaded
     $(musicLoaded).change(function(){
         let gameStatus = true;
@@ -9,14 +9,29 @@ $(function() {
       
 
           //start game
-          init();
-      
-          //hide button
-          $(".description").css("display", "none");
-          $('#content').css('display', 'block');
+            init();
+            initStyles();
+
+        function initStyles(){
+            //hide start button and text
+            $('.description').css('display', 'none');
+            $('#content').css('display', 'block');
+  
+            //change screen colors
+            $('header').css('background', '#000000');
+            $('footer').css('background', '#1b1b1b');
+            $('main').css('background', 'none');
+
+            //change sizes
+            $('header').css('height', '20vh');
+            $('main').css('height', '72vh');
+       
+
+        }
 
       
         function init() {
+            counter();
           //add balls
           // let randomTimer = (Math.floor(Math.random()*3) * 1000);
           setInterval(function() {
@@ -26,13 +41,35 @@ $(function() {
           }, 10000);
       
           //display paddle and hide cursor
-          $(".paddle").css("display", "block");
-          $("body").css("cursor", "none");
+          $('main').on('mouseover', function(){
+              $(".paddle").css("display", "block");
+              $("body").css("cursor", "none");
+              console.log('on main');
+
+          });
+          $('footer, header').on('mouseover', function(){
+            $(".paddle").css("display", "none");
+            $("body").css("cursor", "auto");
+            console.log('on footer');
+          });
         }
       
         //loop through balls to add unique classname
         let lastBall;
+        
+        function randomColor(){
+            //
+            const val = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
+            let color = "#";
+
+            for(let i = 0; i < 6; i++){
+                color += val[Math.floor(Math.random() * 16)];
+            }
+
+        }
       
+        randomColor();
+
         function addBall() {
           $(".game").append(`<div class="ball"></div>`);
           $(".ball").each(function(index, ball) {
@@ -46,9 +83,9 @@ $(function() {
       
         //random ball starting position
         function randomStart() {
-          const screenSize = $("main").width() - 100;
-          let horizontalStart = Math.floor(Math.random() * screenSize + 100);
-          $(".ball" + lastBall).css("left", horizontalStart + "px");
+          const screenSize = ($("main").width() - 100);
+          let horizontalStart = Math.floor(Math.random() * screenSize);
+          $(".ball" + lastBall).css("left", horizontalStart + 20 + "px");
           $(".ball" + lastBall).css("top", "20%");
         }
       
@@ -93,21 +130,15 @@ $(function() {
         function endgame() {
             audio.pause();
         
-            
+        
           $(".endgameContainer").css("display", "flex");
           $(".paddle").css("display", "none");
           $(".endgameContainer .gameScore").html(`Your score is: ${score}`);
-          $("body").css("cursor", "block");
+          $("body").css("cursor", "auto");
  
         }
       
-        function reset() {
-          console.log("reseted");
-          $(".endgameContainer").css("display", "none");
-          $(".paddle").css("display", "block");
-          init();
-          score = 0;
-        }
+
       
         //constant check collision status
         function repeatOften() {
@@ -188,19 +219,6 @@ $(function() {
           }, 1000);
         }
       
-        function init() {
-          counter();
-          //add balls
-          // let randomTimer = (Math.floor(Math.random()*3) * 1000);
-          setInterval(function() {
-            addBall();
-            requestAnimationFrame(repeatOften);
-            console.log("added ball");
-          }, 10000);
-      
-          //display paddle and hide cursor
-          $(".paddle").css("display", "block");
-          $("body").css("cursor", "none");
-        }
+
     });
 }); //end of doc ready

@@ -42,42 +42,44 @@
         <!-- <button id="playAgain">Play again?</button> -->
     </div>
     <footer>
-        <div class="wrapper">
-            <div class="contactShare">
-                <p>by: sandy tian</p>
-
-            </div>
+        <div class="contactShare">
+            <p>By: Sandy Tian</p>
+            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20game%20by%20Sandy%20Tian.%20Just%20hire%20him%20already!!!%20#hirehim" data-size="large">
+                Tweet</a>
+            <link rel="me" href="https://twitter.com/sandyclause_">
         </div>
     </footer>
     
 
-
-
-
-
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-<script>
-    let musicPause = false;
-    var file = document.getElementById("thefile");
-    var audio = document.getElementById("audio");
 
-</script>
 <script src="scripts/game.js"></script>
 <script src="scripts/music.js"></script>
+<script>window.twttr = (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function (f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));</script>
+
+<!-- references and credits
+    formula for collision detection
+    https://stackoverflow.com/users/2051938/mixeroid
+
+    music visualization
+    https://codepen.io/nfj525/pen/rVBaab -->
 
 
- 
-<script>
-
-
-//references and credits
-    //formula for collision detection
-    // https://stackoverflow.com/users/2051938/mixeroid
-
-    //music visualization
-    //https://codepen.io/nfj525/pen/rVBaab
-
-</script>
 </body>
 </html>

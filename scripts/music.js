@@ -1,8 +1,6 @@
 window.onload = function() {
-//   var file = document.getElementById("thefile");
-//   var audio = document.getElementById("audio");
-
-  console.log(musicPause);
+  var file = document.getElementById("thefile");
+  var audio = document.getElementById("audio");
 
   file.onchange = function() {
     var files = this.files;
@@ -42,7 +40,7 @@ window.onload = function() {
 
       analyser.getByteFrequencyData(dataArray);
 
-      ctx.fillStyle = "#000";
+      ctx.fillStyle = "#fff";
       ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
       for (var i = 0; i < bufferLength; i++) {
