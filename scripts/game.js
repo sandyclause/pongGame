@@ -1,7 +1,7 @@
 
 $(function() {
     const musicLoaded = $('#thefile');
-
+    console.log(musicPause);
     //start game once music is loaded
     $(musicLoaded).change(function(){
         let gameStatus = true;
@@ -91,14 +91,14 @@ $(function() {
         //endgame function
         //check if ball has passed boundaries. if so, endgame
         function endgame() {
+            audio.pause();
+        
+            
           $(".endgameContainer").css("display", "flex");
           $(".paddle").css("display", "none");
           $(".endgameContainer .gameScore").html(`Your score is: ${score}`);
           $("body").css("cursor", "block");
-          // $('#playAgain').on('click', function(){
-          //     reset();
-          //     console.log('clicked');
-          // });
+ 
         }
       
         function reset() {

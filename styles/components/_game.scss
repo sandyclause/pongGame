@@ -22,7 +22,7 @@ header{
 main{
     width: 100vw;
     height: 70%;
-    background: green;
+    // background: green;
 
     display: flex;
     flex-flow: row nowrap;
@@ -49,7 +49,7 @@ footer{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: red;
+    background: #ffffff;
 
     left: 0px;
 
@@ -60,7 +60,7 @@ footer{
 .paddle{
     width: 100px;
     height: 20px;
-    background: black;
+    background: #ffffff;
 
     position: absolute;
     left: -100px;

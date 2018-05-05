@@ -1,6 +1,8 @@
 window.onload = function() {
-  var file = document.getElementById("thefile");
-  var audio = document.getElementById("audio");
+//   var file = document.getElementById("thefile");
+//   var audio = document.getElementById("audio");
+
+  console.log(musicPause);
 
   file.onchange = function() {
     var files = this.files;
