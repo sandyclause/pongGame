@@ -1,5 +1,5 @@
 #thefile {
-  position: fixed;
+//   position: fixed;
   top: 10px;
   left: 10px;
   z-index: 100;
@@ -22,4 +22,23 @@ audio {
   width: calc(100% - 20px);
 
 //   z-index: -1;
+}
+
+#content{
+    position: relative;
+    input[type='image']{
+        position: absolute;
+        top: 0px;
+        background: red;
+        // padding: 20px 30px;
+        :hover{
+            cursor: pointer;
+        }
+
+        
+    }
+    input[type='file']{
+        // opacity: 0;
+        z-index: 2;
+    }
 }

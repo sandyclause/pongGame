@@ -17,7 +17,13 @@
         <div class="description">
             <p>Hi, this is my simple pong game. The goal of the game is to not let the balls fall through the bottom of the screen using the paddle.</p>
 
-            <button id="play">Play</button>
+            <!-- music visual -->
+            <div id="content">
+                <input type="image" value="Play Game">
+                <input type="file" id="thefile" accept="audio/*" />
+                <canvas id="canvas"></canvas>
+                <audio id="audio"></audio>
+            </div>
 
         </div>
         <div class="game">
@@ -28,12 +34,6 @@
 
         </div>
 
-        <!-- music visual -->
-        <div id="content">
-            <input type="file" id="thefile" accept="audio/*" />
-            <canvas id="canvas"></canvas>
-            <audio id="audio"></audio>
-        </div>
     </main>
     <div class="endgameContainer">
         <h1>Game end</h1>

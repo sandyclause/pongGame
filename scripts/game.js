@@ -2,7 +2,7 @@ $(function() {
   let gameStatus = true;
   let score = 0;
 
-  $("#play").click(function() {
+  $("input[type=file").click(function() {
     //start game
     init();
 
