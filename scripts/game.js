@@ -8,6 +8,7 @@ $(function() {
 
     //hide button
     $(".description").css("display", "none");
+    $('#content').css('display', 'block');
   });
 
   function init() {

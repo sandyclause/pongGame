@@ -1,17 +1,10 @@
 window.onload = function() {
   var file = document.getElementById("thefile");
   var audio = document.getElementById("audio");
-  var start = this.document.getElementById('play');
-
-//   console.log(document.getElementById("thefile"));
-//   console.log(document.getElementById("audio"));
-
-
 
   file.onchange = function() {
     var files = this.files;
     audio.src = URL.createObjectURL(files[0]);
-    console.log(audio.src);
     audio.load();
     audio.play();
     var context = new AudioContext();
