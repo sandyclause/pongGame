@@ -1,7 +1,12 @@
 
 $(function() {
     const musicLoaded = $('#thefile');
+    const windowWidth = $(window).width();
 
+   if(windowWidth < 786){
+        $("#instructionMain").text("testing");
+   }
+   
     //start game once music is loaded
     $(musicLoaded).change(function(){
         let gameStatus = true;
@@ -40,20 +45,35 @@ $(function() {
             console.log("added ball");
           }, 10000);
           //start paddle as block
+
+          
           $(".paddle").css("display", "block");
-          //display paddle and hide cursor
-          $('main').on('mouseover', function(){
-              $(".paddle").css("display", "block");
-              $("body").css("cursor", "none");
-              console.log('on main');
-                $(".paddle").css("display", "block");
-          });
-          //hide paddle if on header or footer
-          $('footer, header').on('mouseover', function(){
-            $(".paddle").css("display", "none");
-            $("body").css("cursor", "auto");
-            console.log('on footer');
-          });
+
+          
+
+          //game is touch only when under 786px window width
+          //paddle is hidden
+          if(windowWidth < 786){
+              $(".paddle").css("display", "none");
+
+           
+          } else{
+              //display paddle and hide cursor
+              $('main').on('mouseover', function(){
+                  $(".paddle").css("display", "block");
+                  $("body").css("cursor", "none");
+                  console.log('on main');
+                    $(".paddle").css("display", "block");
+              });
+              //hide paddle if on header or footer
+              $('footer, header').on('mouseover', function(){
+                $(".paddle").css("display", "none");
+                $("body").css("cursor", "auto");
+                console.log('on footer');
+              });
+
+          }
+
         }
       
         //loop through balls to add unique classname
@@ -126,6 +146,11 @@ $(function() {
                   return;
                 }
               }
+
+              //mobile click
+              $(dynamicBall).on("click", function() {
+                moveBack(dynamicBall);
+              });
             }
           } //end of game status
           else {

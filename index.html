@@ -17,16 +17,18 @@
         <!-- music display effects -->
         <canvas id="canvas"></canvas>
         <div class="description">
-            <p>Hi, this is my simple pong game. The goal of the game is to not let the balls fall through the bottom of the screen using the paddle.</p>
+            <p class="instruction" id="instructionMain">The goal of the game is to not let the balls fall through the bottom of the screen using the paddle.</p>
+            <p class="instruction">Click button to choose your music</p>
 
             <!-- music visual -->
             <div id="content">
-                <input type="image" value="Play Game">
+                <input id="replacementImg" value="Play Game">
                 <input type="file" id="thefile" accept="audio/*" />
                 <audio id="audio"></audio>
             </div>
 
         </div>
+        
         <div class="game">
             <h1 class="timer"></h1>
             <!-- <div class="ball"></div> -->

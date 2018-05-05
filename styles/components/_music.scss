@@ -24,19 +24,26 @@ audio {
 
 #content{
     position: relative;
-    input[type='image']{
+    #replacementImg{
         position: absolute;
         top: 0px;
-        background: red;
-        // padding: 20px 30px;
+        background: #fff;
+        color: red;
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 20px 30px;
+        border: none;
         :hover{
             cursor: pointer;
         }
+    
 
         
     }
     input[type='file']{
-        // opacity: 0;
+        opacity: 0;
+        padding: 20px 30px;
+        background: green;
         z-index: 2;
         :hover{
             cursor: pointer;
