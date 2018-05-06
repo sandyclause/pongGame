@@ -1,21 +1,23 @@
-
 $(function() {
-    const musicLoaded = $('#thefile');
-    const windowWidth = $(window).width();
-
-   if(windowWidth < 786){
-        $("#instructionMain").text("testing");
-   }
-   
-    //start game once music is loaded
-    $(musicLoaded).change(function(){
-        let gameStatus = true;
-        let score = 0;
-      
-
+  const musicLoaded = $('#thefile');
+  const windowWidth = $(window).width();
+  let gameStatus = true;
+  let score = 0;
+  let lastBall; //name of last ball added for unique classname
+  let runBallUp = false; //if ball should go up by collision
+  
+  
+  //change the text on the description. no paddle and click only on mobile
+  if(windowWidth < 786){
+    $("#instructionMain").text("The goal of the game is to not let the balls fall through the bottom by touching the balls.");
+  }
+  
+  //start game once music is loaded
+  $(musicLoaded).change(function(){
+    
           //start game
             init();
-            initStyles();
+            
 
         function initStyles(){
             //hide start button and text
@@ -30,68 +32,51 @@ $(function() {
             //change sizes
             $('header').css('height', '20vh');
             $('main').css('height', '72vh');
-       
-
         }
 
-      
         function init() {
-            counter();
+          counter();
+          initStyles();
           //add balls
-          // let randomTimer = (Math.floor(Math.random()*3) * 1000);
           setInterval(function() {
             addBall();
             requestAnimationFrame(repeatOften);
             console.log("added ball");
           }, 10000);
-          //start paddle as block
-
           
-          $(".paddle").css("display", "block");
-
-          
-
           //game is touch only when under 786px window width
           //paddle is hidden
           if(windowWidth < 786){
-              $(".paddle").css("display", "none");
-
-           
+            $(".paddle").css("display", "none");
+            
           } else{
-              //display paddle and hide cursor
-              $('main').on('mouseover', function(){
-                  $(".paddle").css("display", "block");
-                  $("body").css("cursor", "none");
-                  console.log('on main');
-                    $(".paddle").css("display", "block");
+            //display paddle and hide cursor
+            $('main').on('mouseover', function(){
+              $(".paddle").css("display", "block");
+              $("main").css("cursor", "none");
               });
-              //hide paddle if on header or footer
-              $('footer, header').on('mouseover', function(){
-                $(".paddle").css("display", "none");
-                $("body").css("cursor", "auto");
-                console.log('on footer');
-              });
-
+            //hide paddle if on header or footer
+            $('footer, header').on('mouseover', function(){
+              $(".paddle").css("display", "none");
+            });
           }
-
-        }
+        } //end of init
       
-        //loop through balls to add unique classname
-        let lastBall;
         
         function randomColor(){
-            //all possible make up of color hex code
-            const val = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
-            let color = "#";
-
-            for(let i = 0; i < 6; i++){
-                //appends 6 times to the color string
-                color += val[Math.floor(Math.random() * 16)];
-            }
-            return color;
+          //all possible make up of color hex code
+          const val = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
+          let color = "#";
+          
+          for(let i = 0; i < 6; i++){
+            //appends 6 times to the color string
+            color += val[Math.floor(Math.random() * 16)];
+          }
+          return color;
         }
-      
-        randomColor();
+        
+
+        
 
         function addBall() {
           $(".game").append(`<div class="ball"></div>`);
@@ -115,16 +100,14 @@ $(function() {
           $(".ball" + lastBall).css("top", "20%");
         }
       
-        //collision function
-        let runBallUp = false;
       
         function collisionCheck(gameStatus) {
           if (gameStatus) {
             let n = $(".ball").length;
-            // console.log('number of balls ' + n);
+
             for (let i = 0; i < n; i++) {
-              // console.log('inside for loop' + i);
               let dynamicBall = ".ball" + i;
+
               //get the cords of the ball and paddle
               setCords(dynamicBall);
       
@@ -137,7 +120,6 @@ $(function() {
 
                 //changes color of paddle on collision
                 $('.paddle').css('background', randomColor());
-      
                 runBallUp = true;
               } else {
                 if ((runBallUp = true)) {
@@ -146,12 +128,14 @@ $(function() {
                   return;
                 }
               }
-
+              
               //mobile click
-              $(dynamicBall).on("click", function() {
-                moveBack(dynamicBall);
+              $(dynamicBall).on('click', function(){
+                  score++;
+                  moveBack(dynamicBall);
+                  console.log(score)
               });
-            }
+            } //end of for loop
           } //end of game status
           else {
             endgame();
@@ -162,17 +146,13 @@ $(function() {
         //check if ball has passed boundaries. if so, endgame
         function endgame() {
             audio.pause();
-        
-        
+
           $(".endgameContainer").css("display", "flex");
           $(".paddle").css("display", "none");
           $(".endgameContainer .gameScore").html(`Your score is: ${score}`);
           $("body").css("cursor", "auto");
- 
         }
-      
 
-      
         //constant check collision status
         function repeatOften() {
           collisionCheck(gameStatus);
@@ -181,8 +161,6 @@ $(function() {
       
         //setting the x and y values
         function setCords(ball) {
-          // console.log($(ball));
-      
           $(ball).data("coordinates", {
             x: $(ball).offset().left,
             y: $(ball).offset().top,
@@ -190,9 +168,6 @@ $(function() {
             width: $(ball).outerWidth()
           });
       
-          //sets moving down intial value to true
-          $(ball).data("moveDown");
-          $(ball).data("moveUp");
       
           $(".paddle").data("coordinates", {
             x: $(".paddle").offset().left,
@@ -204,11 +179,11 @@ $(function() {
       
         //set interval
         //request animation
-      
-        let ballSpeed = "+=1";
         function move(ballY, dynamicBall) {
+          let ballSpeed = "+=1";
+        
+          //checks when ball passes to the footer
           const mainHeight = $("main").height() + $("header").height();
-      
           if (ballY > mainHeight) {
             gameStatus = false;
           } else {
@@ -232,13 +207,12 @@ $(function() {
         }
       
         //mouse as paddle
-      
         $(document).on("mousemove", function(e) {
           $(".paddle").css("top", e.pageY);
           $(".paddle").css("left", e.pageX);
         });
       
-        //counter function
+        //counter before game start
         function counter() {
           let startDelay = 9;
           setInterval(function() {
@@ -250,7 +224,6 @@ $(function() {
             }
           }, 1000);
         }
-      
 
     });
 }); //end of doc ready

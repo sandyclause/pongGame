@@ -34,7 +34,7 @@ header{
 
 main{
     width: 100vw;
-    height: 77%;
+    height: 77vh;
     background: #e0e0e0;
 
     display: flex;
@@ -63,7 +63,7 @@ main{
 }
 
 footer{
-    height: 8%;
+    height: 8vh;
     background: #777777;
     padding: 10px;
     color: #e0e0e0;
@@ -121,4 +121,17 @@ footer{
 
     justify-content: center;
     align-items: center;
+}
+
+
+//prevent dragging selection
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+input, button, textarea, :focus {
+    outline: none; 
 }

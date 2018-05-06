@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bounce game</title>
+    <title>Simple Pong Game</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -22,7 +22,7 @@
 
             <!-- music visual -->
             <div id="content">
-                <input id="replacementImg" value="Play Game">
+                <p id="replacementImg">Play Game</p>
                 <input type="file" id="thefile" accept="audio/*" />
                 <audio id="audio"></audio>
             </div>
@@ -31,17 +31,14 @@
         
         <div class="game">
             <h1 class="timer"></h1>
-            <!-- <div class="ball"></div> -->
             <div class="result"></div>
             <div class="paddle"></div>
-
         </div>
 
     </main>
     <div class="endgameContainer">
         <h1>Game end</h1>
         <h1 class="gameScore"></h1>
-        <!-- <button id="playAgain">Play again?</button> -->
     </div>
     <footer>
         <div class="contactShare">
@@ -54,33 +51,18 @@
     
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-
-
 <script src="scripts/game.js"></script>
 <script src="scripts/music.js"></script>
-<script>window.twttr = (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0],
-            t = window.twttr || {};
-        if (d.getElementById(id)) return t;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://platform.twitter.com/widgets.js";
-        fjs.parentNode.insertBefore(js, fjs);
+<script src="scripts/twitter.js"></script>
 
-        t._e = [];
-        t.ready = function (f) {
-            t._e.push(f);
-        };
-
-        return t;
-    }(document, "script", "twitter-wjs"));</script>
-
-<!-- references and credits
+<!-- 
+    references and credits
     formula for collision detection
     https://stackoverflow.com/users/2051938/mixeroid
 
     music visualization
-    https://codepen.io/nfj525/pen/rVBaab -->
+    https://codepen.io/nfj525/pen/rVBaab 
+-->
 
 
 </body>
