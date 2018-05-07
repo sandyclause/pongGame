@@ -26,7 +26,7 @@ const app = {
     
     //change the text on the description. no paddle and click only on mobile
     if (windowWidth < 786) {
-      $("#instructionMain").text("The goal of the game is to not let the balls fall through the bottom by touching the balls.");
+      $("#instructionMain").text("Load up your fav song and keep the balls falling to the bottom by clicking on them. Have fun!!!");
     }
     //start game once music is loaded
     $(musicLoaded).change(function() {
