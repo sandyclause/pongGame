@@ -38,7 +38,6 @@ const app = {
       setInterval(function() {
         app.addBall();
         requestAnimationFrame(app.repeatOften);
-        console.log("added ball");
       }, 10000);
   
       //game is touch only when under 786px window width
@@ -46,6 +45,7 @@ const app = {
       if (windowWidth < 786) {
         $(".paddle").css("display", "none");
       } else {
+        $(".paddle").css("display", "block");
         //display paddle and hide cursor
         $("main").on("mouseover", function() {
           $(".paddle").css("display", "block");
@@ -127,7 +127,6 @@ const app = {
         $(dynamicBall).on("click", function() {
           score++;
           app.moveBack(dynamicBall);
-          console.log(score);
         });
       } //end of for loop
     } //end of game status
@@ -142,6 +141,9 @@ const app = {
     audio.pause();
   
     $(".endgameContainer").css("display", "flex");
+    twttr.widgets.load(
+      document.getElementById("dynamicTwitterContainer")
+    );
     $(".paddle").css("display", "none");
     $(".endgameContainer .gameScore").html(`Your score is: ${score}`);
     $("body").css("cursor", "auto");
